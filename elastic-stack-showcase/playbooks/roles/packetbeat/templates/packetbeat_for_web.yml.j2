@@ -1,5 +1,6 @@
+##Packetbeat supports capturing all messages sentor received by
+## the server on which Packetbeat is installed. For this, use any as the device
 packetbeat.interfaces.device: any
-
 
 packetbeat.flows:
   timeout: 30s
@@ -57,4 +58,4 @@ packetbeat.protocols.nfs:
 
 
 output.elasticsearch:
-  hosts: ["{{connect_elastic_host}}:{{elastic_port}}"]
+  hosts: ["{{ elastic_host }}:{{ elastic_port }}"]

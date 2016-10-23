@@ -1,0 +1,7 @@
+---
+- name: Install Packetbeat
+  hosts: all
+  become: true
+
+  roles:
+    - packetbeat

@@ -17,10 +17,10 @@
   notify:
     - restart metricbeat
 
-- name: start and enable metricbeat
+- name: Start and enable metricbeat
   service: name=metricbeat state=started enabled=yes
 
 - name: Import Metricbeat example dashboards
   command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
   with_items:
-      - metricbeat
+    - metricbeat

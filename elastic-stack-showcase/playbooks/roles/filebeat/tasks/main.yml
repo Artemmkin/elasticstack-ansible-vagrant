@@ -23,4 +23,4 @@
 - name: Load the Filebeat index-pattern
   command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
   with_items:
-      - filebeat
+    - filebeat

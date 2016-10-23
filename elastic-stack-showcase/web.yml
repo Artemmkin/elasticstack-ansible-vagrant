@@ -3,3 +3,4 @@
 - include: playbooks/webapp.yml
 - include: playbooks/filebeat.yml filebeat_config_name=filebeat_for_web
 - include: playbooks/metricbeat.yml metricbeat_config_name=metricbeat_for_web
+- include: playbooks/packetbeat.yml packetbeat_config_name=packetbeat_for_web

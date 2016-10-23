@@ -1,0 +1,6 @@
+output {
+  elasticsearch {
+    hosts => ["{{connect_elastic_host}}:{{elastic_port}}"]
+  }
+  stdout { codec => rubydebug }
+}

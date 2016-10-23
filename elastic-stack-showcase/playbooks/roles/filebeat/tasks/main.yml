@@ -1,0 +1,26 @@
+---
+## Filebeat
+- name: Get Filebeat
+  get_url:
+    url={{ elastic_download }}/downloads/beats/filebeat/filebeat-{{ elastic_version }}-amd64.deb
+    dest=/opt/filebeat.deb
+
+- name: Install Filebeat
+  apt: deb=/opt/filebeat.deb
+
+- name: Create configuration file
+  template:
+    src: templates/{{ filebeat_config_name }}.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+  notify:
+    - restart filebeat
+
+- name: start and enable filebeat
+  service: name=filebeat state=started enabled=yes
+
+- name: Load the Filebeat index-pattern
+  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
+  with_items:
+      - filebeat

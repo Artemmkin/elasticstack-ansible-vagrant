@@ -1,0 +1,7 @@
+---
+- name: Apply a role common for each service
+  hosts: all
+  become: true
+
+  roles:
+    - common

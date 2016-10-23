@@ -1,0 +1,54 @@
+---
+- name: get GO package
+  get_url:
+    url: "https://storage.googleapis.com/golang/{{ go_package }}"
+    dest: /opt/{{ go_package }}
+    checksum: "{{ go_checksum }}"
+
+
+- name: Install the package
+  unarchive: src=/opt/{{ go_package }} dest=/usr/local remote_src=yes
+
+- name: set GO env vars for all users
+  copy:
+    src: files/set_go_envs.sh
+    dest: /etc/profile.d
+
+
+- name: set GOPATH for root
+  lineinfile: dest=~/.bashrc regexp="^(export GOPATH=)" line="export GOPATH={{ goapp_home_path }}"
+- lineinfile: dest=~/.bashrc regexp="^(export GOBIN=)" line="export GOBIN={{ goapp_home_path }}/bin"
+
+- name: install git
+  apt: name=git state=latest update_cache=yes
+
+- name: checkout app repo
+  git: repo=https://github.com/Artemmkin/qor-example.git dest={{goapp_home_path}} update=no
+
+- name: copy makefile
+  template: src=templates/Makefile.j2 dest={{ goapp_home_path }}/Makefile
+
+- name: copy database config
+  copy:
+    src: files/database.example.yml
+    dest: "{{ goapp_home_path }}/config"
+
+- name: check if dependencies have been loaded
+  stat: path={{ goapp_home_path }}/src/golang.org
+  register: dependent_folder
+
+- name: install application
+  shell: ". /etc/profile && make get"
+  args:
+    chdir: "{{ goapp_home_path }}"
+  environment:
+    GOPATH: "{{ goapp_home_path }}"
+    GOBIN: "{{ goapp_home_path }}/bin"
+  when: dependent_folder.stat.exists == False
+
+
+- name: copy init script
+  template: src=templates/goapp_init.j2 dest=/etc/init.d/{{goapp_name}} mode=0755
+
+- name: start
+  service: name={{ goapp_name }} state=started

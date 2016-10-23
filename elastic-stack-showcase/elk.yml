@@ -1,0 +1,8 @@
+---
+- include: playbooks/common.yml
+- include: playbooks/java.yml
+- include: playbooks/elasticsearch.yml
+- include: playbooks/logstash.yml
+- include: playbooks/kibana.yml
+# - include: playbooks/filebeat.yml filebeat_config_name=filebeat_for_elk
+# - include: playbooks/metricbeat.yml metricbeat_config_name=metricbeat_for_elk

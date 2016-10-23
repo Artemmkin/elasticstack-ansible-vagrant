@@ -1,0 +1,2 @@
+logstash_confdir: /etc/logstash/
+grok_pattern_path: /usr/share/logstash/patterns

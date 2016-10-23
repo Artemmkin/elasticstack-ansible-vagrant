@@ -1,0 +1,26 @@
+---
+- name: Install MySQL
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: Start the MySQL service
+  service: name=mysql state=started enabled=yes
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  with_items:
+   - "{{ ansible_hostname }}"
+   - 127.0.0.1
+   - ::1
+   - localhost
+
+- name: copy .my.cnf file with root password credentials
+  template: src=.my.cnf.j2 dest=~/.my.cnf mode=0600
+
+- name: remove the test database
+  mysql_db: name=test state=absent
+
+- name: Create a database
+  mysql_db: name=qor_example state=present

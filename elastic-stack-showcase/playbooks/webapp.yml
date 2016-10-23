@@ -1,0 +1,7 @@
+---
+- name: Install webapp
+  hosts: all
+  become: true
+
+  roles:
+    - webapp

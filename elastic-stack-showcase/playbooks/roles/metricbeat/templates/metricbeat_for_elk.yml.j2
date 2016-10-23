@@ -1,0 +1,19 @@
+metricbeat.modules:
+
+- module: system
+  metricsets:
+    - cpu
+    - load
+    - core
+    - diskio
+    - filesystem
+    #- fsstat
+    - memory
+    - network
+    - process
+  enabled: true
+  period: 10s
+  processes: ['.*']
+
+output.elasticsearch:
+  hosts: ["{{ elastic_host }}:{{ elastic_port }}"]

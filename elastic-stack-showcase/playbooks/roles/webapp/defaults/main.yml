@@ -1,0 +1,9 @@
+go_package: go1.7.1.linux-amd64.tar.gz
+go_checksum: sha256:43ad621c9b014cde8db17393dc108378d37bc853aa351a6c74bf6432c1bbd182
+goapp_name: goapp
+goapp_home_path: /srv/{{ goapp_name }}
+mysql_root_db_pass: foobar
+
+goapp_host: localhost
+goapp_port: 7000
+goapp_domain: localhost

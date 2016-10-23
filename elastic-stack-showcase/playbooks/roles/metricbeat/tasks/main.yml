@@ -1,0 +1,26 @@
+---
+## Metricbeat
+- name: Get Metricbeat
+  get_url:
+    url={{ elastic_download }}/downloads/beats/metricbeat/metricbeat-{{ elastic_version }}-amd64.deb
+    dest=/opt/metricbeat.deb
+
+- name: Install Metricbeat
+  apt: deb=/opt/metricbeat.deb
+
+- name: Create configuration file
+  template:
+    src: templates/{{ metricbeat_config_name }}.yml.j2
+    dest: /etc/metricbeat/metricbeat.yml
+    owner: root
+    group: root
+  notify:
+    - restart metricbeat
+
+- name: start and enable metricbeat
+  service: name=metricbeat state=started enabled=yes
+
+- name: Import Metricbeat example dashboards
+  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
+  with_items:
+      - metricbeat

@@ -1,0 +1,21 @@
+---
+
+- name: Get Kibana
+  get_url:
+    url={{ elastic_download }}/downloads/kibana/kibana-{{ elastic_version }}-amd64.deb
+    dest=/opt/kibana.deb
+
+- name: Install Kibana
+  apt: deb=/opt/kibana.deb
+
+- name: Copy Kibana configuration.
+  template:
+    src: templates/kibana.yml.j2
+    dest: "/etc/kibana/kibana.yml"
+    owner: root
+    group: root
+  notify: restart kibana
+
+
+- name: start and enable kibana
+  service: name=kibana state=started enabled=yes

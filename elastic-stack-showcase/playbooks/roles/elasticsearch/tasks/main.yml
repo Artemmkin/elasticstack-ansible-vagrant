@@ -1,0 +1,22 @@
+---
+- name: Get Elasticsearch
+  get_url:
+    url={{ elastic_download }}/downloads/elasticsearch/elasticsearch-{{ elastic_version }}.deb
+    dest=/opt/elasticsearch.deb
+
+- name: Install Elasticsearch
+  apt: deb=/opt/elasticsearch.deb
+
+- name: Change Elasticsearch's memory usage to 512MB
+  lineinfile: dest=/etc/elasticsearch/jvm.options regexp="^-Xms" line="-Xms512m" state=present
+- lineinfile: dest=/etc/elasticsearch/jvm.options regexp="^-Xmx" line="-Xmx512m" state=present
+  notify:
+    - restart elasticsearch
+
+- name: Copy config for elasticsearch
+  template: src=templates/elasticsearch.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  notify:
+    - restart elasticsearch
+
+- name: Start and enable elasticsearch
+  service: name=elasticsearch state=started enabled=yes

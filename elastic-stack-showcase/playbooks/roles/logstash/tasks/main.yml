@@ -1,0 +1,29 @@
+---
+- name: Get Logstash
+  get_url:
+    url={{ elastic_download }}/downloads/logstash/logstash-{{ elastic_version }}.deb
+    dest=/opt/logstash.deb
+
+- name: Install Logstash
+  apt: deb=/opt/logstash.deb
+
+- name: Make sure that a logstash user exists
+  user: name=logstash system=yes groups=adm
+
+- name: Create a folder for grok patterns
+  file: path={{ grok_pattern_path }} state=directory owner=logstash group=logstash
+
+- name: Install grok pattern for nginx
+  copy: src=files/nginx dest={{ grok_pattern_path }}/nginx owner=logstash group=logstash
+
+- name: Configure logstash
+  template:
+    dest: "{{logstash_confdir}}/conf.d/{{item}}"
+    group: root
+    owner: root
+    src: templates/{{item}}.j2
+  notify: restart logstash
+  with_items: [ 02-beats-input.conf, 11-nginx-filter.conf, 30-elasticsearch-output.conf ]
+
+- name: Start and enable logstash
+  service: name=logstash state=started enabled=yes

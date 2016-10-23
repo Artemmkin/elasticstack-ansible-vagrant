@@ -1,0 +1,30 @@
+---
+# ## Packetbeat
+- name: Get Packetbeat
+  get_url:
+    url={{ elastic_download }}/downloads/beats/packetbeat/packetbeat-{{ elastic_version }}-amd64.deb
+    dest=/opt/packetbeat.deb
+
+- name: Install Packetbeat
+  apt: deb=/opt/packetbeat.deb
+
+- name: Create configuration file
+  template:
+    src: templates/{{ packetbeat_config_name }}.yml.j2
+    dest: /etc/packetbeat/packetbeat.yml
+    owner: root
+    group: root
+  notify:
+    - restart packetbeat
+
+- name: start and enable packetbeat
+  service: name=packetbeat state=started enabled=yes
+#
+# ##Using the import_dashboards script, you can import
+# ## the dashboards and the index pattern to Elasticsearch running on localhost port 9200
+# - name: Load the Filebeat dashboard
+#   command: /usr/share/{{ item }}/scripts/import_dashboards
+#   with_items:
+#       - filebeat
+#       # - metricbeat
+#       # - packetbeat

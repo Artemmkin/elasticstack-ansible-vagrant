@@ -1,0 +1,26 @@
+metricbeat.modules:
+
+- module: system
+  metricsets:
+    - cpu
+    - load
+    - core
+    - diskio
+    - filesystem
+    #- fsstat
+    - memory
+    - network
+    - process
+  enabled: true
+  period: 10s
+  processes: ['.*']
+- module: nginx
+  metricsets: ["stubstatus"]
+  enabled: true
+  period: 10s
+  # Nginx hosts
+  hosts: ["http://127.0.0.1/basic_status"]
+
+
+output.elasticsearch:
+  hosts: ["{{ elastic_host }}:{{ elastic_port }}"]

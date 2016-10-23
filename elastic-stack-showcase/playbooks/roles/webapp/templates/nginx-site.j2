@@ -1,0 +1,20 @@
+upstream {{ goapp_name }} {
+	server {{ goapp_host }};
+}
+
+server {
+	listen 80;
+	server_name {{ goapp_domain }};
+	error_page 400 404 500 502 503 504 /50x.html;
+
+  location / {
+		proxy_pass http://{{ goapp_host }}:{{goapp_port}}/;
+	}
+
+  location /basic_status {
+    stub_status;
+    access_log off;
+    allow 127.0.0.1;
+    deny all;
+  }
+}

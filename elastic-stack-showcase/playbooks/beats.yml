@@ -1,0 +1,7 @@
+---
+- name: Install Filebeat
+  hosts: all
+  become: true
+
+  roles:
+    - beats

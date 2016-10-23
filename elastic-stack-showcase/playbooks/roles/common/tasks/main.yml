@@ -1,0 +1,12 @@
+---
+- name: Install NTP to avoid clock drift inside the VM
+  apt: name=ntp state=installed
+
+- name: be sure ntpd is running and enabled
+  service: name=ntp state=started enabled=yes
+
+- name: Get rid of Chef and Puppet to save some resources and autoremove unused packages to save some disk space
+  apt: name={{ item }} state=absent autoremove=yes
+  with_items:
+    - chef
+    - puppet

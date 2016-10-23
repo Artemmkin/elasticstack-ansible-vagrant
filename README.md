@@ -1,0 +1,1 @@
+# elasticstack-ansible-vagrant

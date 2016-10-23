@@ -26,12 +26,11 @@ filter {
 }
 
 output {
-stdout {
- codec => plain {
-      charset => "ISO-8859-1"
+  stdout {
+    codec => plain {
+    charset => "ISO-8859-1"
+    }
   }
-
- }
   elasticsearch {
     index => "nginx_elk_example"
     hosts => "{{elastic_host}}:{{elastic_port}}"

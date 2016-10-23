@@ -1,8 +1,12 @@
 filebeat.prospectors:
--
-  paths:
+- paths:
     - /var/log/nginx/access.log
   document_type: nginx-access
+- paths:
+    - /var/log/*.log
+    - /var/log/messages
+    - /var/log/syslog
+  document_type: syslog
 
 output.logstash:
   hosts: ["{{logstash_host}}:{{beats_port}}"]

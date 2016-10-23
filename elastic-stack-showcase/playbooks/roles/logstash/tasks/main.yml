@@ -23,7 +23,7 @@
     owner: root
     src: templates/{{item}}.j2
   notify: restart logstash
-  with_items: [ 02-beats-input.conf, 11-nginx-filter.conf, 30-elasticsearch-output.conf ]
+  with_items: [ 02-beats-input.conf, 10-syslog-filter.conf, 11-nginx-filter.conf, 30-elasticsearch-output.conf ]
 
 - name: Start and enable logstash
   service: name=logstash state=started enabled=yes

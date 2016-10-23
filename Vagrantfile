@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
     web.vm.box = "ubuntu/trusty64"
     web.vm.hostname = "web"
 
-    web.vm.network :forwarded_port, guest: 7000, host: 7000
+    # web.vm.network :forwarded_port, guest: 7000, host: 7000
     web.vm.network :forwarded_port, guest: 80, host: 80
     web.vm.network :private_network, ip: "10.37.129.20"
     web.vm.synced_folder "elastic-stack-showcase/", "/opt/elastic-stack-plays/"

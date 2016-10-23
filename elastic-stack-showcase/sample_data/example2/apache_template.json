@@ -1,6 +1,6 @@
 {
 
-  "template": "nginx_elk_example",
+  "template": "apache_elk_example",
   "settings": {
      "index.refresh_interval": "5s"
   },
@@ -47,10 +47,7 @@
               },
               "type": "object"
            },
-           "bytes": {
-              "type": "float"
-           },
-           "request": {
+           "@version": {
               "index": "not_analyzed",
               "type": "string"
            }

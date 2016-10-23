@@ -1,5 +1,4 @@
 ---
-
 - name: Get Kibana
   get_url:
     url={{ elastic_download }}/downloads/kibana/kibana-{{ elastic_version }}-amd64.deb
@@ -16,6 +15,5 @@
     group: root
   notify: restart kibana
 
-
-- name: start and enable kibana
+- name: Start and enable kibana
   service: name=kibana state=started enabled=yes

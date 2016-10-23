@@ -1,5 +1,4 @@
 ---
-# ## Packetbeat
 - name: Get Packetbeat
   get_url:
     url={{ elastic_download }}/downloads/beats/packetbeat/packetbeat-{{ elastic_version }}-amd64.deb
@@ -21,6 +20,6 @@
   service: name=packetbeat state=started enabled=yes
 
 - name: Import Packetbeat example dashboards
-  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
+  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{ elastic_host }}:{{ elastic_port }}
   with_items:
     - packetbeat

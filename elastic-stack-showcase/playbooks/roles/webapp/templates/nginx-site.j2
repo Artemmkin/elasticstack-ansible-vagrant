@@ -8,7 +8,7 @@ server {
 	error_page 400 404 500 502 503 504 /50x.html;
 
   location / {
-		proxy_pass http://{{ goapp_host }}:{{goapp_port}}/;
+		proxy_pass http://{{ goapp_host }}:{{ goapp_port }}/;
 	}
 
   location /basic_status {

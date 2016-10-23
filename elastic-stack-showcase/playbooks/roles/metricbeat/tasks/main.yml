@@ -1,5 +1,4 @@
 ---
-## Metricbeat
 - name: Get Metricbeat
   get_url:
     url={{ elastic_download }}/downloads/beats/metricbeat/metricbeat-{{ elastic_version }}-amd64.deb
@@ -21,6 +20,6 @@
   service: name=metricbeat state=started enabled=yes
 
 - name: Import Metricbeat example dashboards
-  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
+  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{ elastic_host }}:{{ elastic_port }}
   with_items:
     - metricbeat

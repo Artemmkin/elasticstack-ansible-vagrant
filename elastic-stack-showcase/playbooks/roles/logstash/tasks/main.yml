@@ -18,7 +18,7 @@
 
 - name: Configure logstash
   template:
-    dest: "{{logstash_confdir}}/conf.d/{{item}}"
+    dest: "{{ logstash_confdir }}/conf.d/{{ item }}"
     group: root
     owner: root
     src: templates/{{item}}.j2

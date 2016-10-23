@@ -3,8 +3,12 @@ elastic_download: https://artifacts.elastic.co
 
 elastic_host: 10.37.129.10
 elastic_port: 9200
-connect_elastic_host: 10.37.129.10
+elasticsearch_url: http://{{ elastic_host }}:{{ elastic_port }}
+
 logstash_host: 10.37.129.10
+
 beats_port: 5044
+
 webapp_host: 10.37.129.20
+
 path_to_sample_data: /opt/elastic-stack-plays/sample_data

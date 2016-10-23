@@ -1,5 +1,4 @@
 ---
-# https://github.com/adibendahan/mysqlbeat/releases/download/1.0.0/mysqlbeat_1.0.0-160512235547_amd64.deb
 - include: mysql.yml
 - include: goapp.yml
 - include: nginx.yml

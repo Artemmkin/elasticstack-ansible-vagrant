@@ -4,4 +4,4 @@ filebeat.prospectors:
     - /var/log/*.log
 
 output.logstash:
-  hosts: ["{{logstash_host}}:{{beats_port}}"]
+  hosts: ["{{ logstash_host }}:{{ beats_port }}"]

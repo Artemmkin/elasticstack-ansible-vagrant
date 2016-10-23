@@ -1,5 +1,4 @@
 ---
-## Filebeat
 - name: Get Filebeat
   get_url:
     url={{ elastic_download }}/downloads/beats/filebeat/filebeat-{{ elastic_version }}-amd64.deb
@@ -17,10 +16,10 @@
   notify:
     - restart filebeat
 
-- name: start and enable filebeat
+- name: Start and enable filebeat
   service: name=filebeat state=started enabled=yes
 
 - name: Load the Filebeat index-pattern
-  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{elastic_host}}:{{elastic_port}}
+  command: /usr/share/{{ item }}/scripts/import_dashboards -es http://{{ elastic_host }}:{{ elastic_port }}
   with_items:
     - filebeat

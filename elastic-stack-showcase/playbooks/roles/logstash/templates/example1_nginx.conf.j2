@@ -33,7 +33,7 @@ output {
   }
   elasticsearch {
     index => "nginx_elk_example"
-    hosts => "{{elastic_host}}:{{elastic_port}}"
+    hosts => "{{ elastic_host }}:{{ elastic_port }}"
     document_type => "logs"
     template => "{{ path_to_sample_data }}/example1/nginx_template.json"
     template_name => "nginx_elk_example"

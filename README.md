@@ -27,7 +27,7 @@ P.S. All the testing has been done on ```ubuntu 14.04 64-bit```.
  vagrant up elk (vagrant up)
  ```
 
- In you browser, type ```10.37.129.10:5061``` (if you haven't changed anything)  to start analyzing logs with Kibana.
+ In your browser, type ```10.37.129.10:5061``` (if you haven't changed anything)  to start analyzing logs with Kibana.
 
  Metrics collection is defined only for the web machine by default. So if you started up 2 machines, default indices ans dashboards would be installed and you could see in action metrics and logs being collected. Just go to **Management -> Saved objects**, then choose **Metricbeat-overview**, for example, to see collected metrics.
 
